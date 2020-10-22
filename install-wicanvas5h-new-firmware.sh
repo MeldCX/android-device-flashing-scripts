@@ -57,23 +57,14 @@ if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\
     adb shell input tap 800 1120
     sleep 12s
     adb shell input tap 1000 400
+    adb shell input keyevent KEYCODE_BACK
 else 
-    echo "Landscape Dismiss"
-    adb shell input tap 530 500
-    adb shell input tap 530 520
-    adb shell input tap 530 540
-    adb shell input tap 530 560
-    adb shell input tap 530 580
-    adb shell input tap 530 600
+    adb shell input tap 500 580
     sleep 2s
-    adb shell input tap 1300 590
-    adb shell input tap 1300 610
-    adb shell input tap 1300 630
-    adb shell input tap 1300 650
-    adb shell input tap 1300 670
-    adb shell input tap 1300 690
-    sleep 12s
+    adb shell input tap 1250 670
+    sleep 2s
     adb shell input tap 1745 390
+    adb shell input keyevent KEYCODE_BACK
 fi
 
 # Updater
