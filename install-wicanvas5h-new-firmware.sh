@@ -45,24 +45,18 @@ adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.install.InstallUtil"
 sleep 5s
 if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
     echo "Portrait Dismiss"
-    adb shell input tap 200 920
-    adb shell input tap 200 940
-    adb shell input tap 200 960
-    adb shell input tap 200 1000
-    sleep 2s
-    adb shell input tap 800 1020
-    adb shell input tap 800 1040
-    adb shell input tap 800 1060
-    adb shell input tap 800 1100
-    adb shell input tap 800 1120
-    sleep 12s
+    adb shell input tap 196 948
+    sleep 1s
+    adb shell input tap 820 1040
+    sleep 3s
     adb shell input tap 1000 400
     adb shell input keyevent KEYCODE_BACK
 else 
+    echo "Landscape Dismiss"
     adb shell input tap 500 580
     sleep 2s
     adb shell input tap 1250 670
-    sleep 2s
+    sleep 3s
     adb shell input tap 1745 390
     adb shell input keyevent KEYCODE_BACK
 fi
@@ -120,7 +114,14 @@ adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.MainActivity"
 adb shell am start-foreground-service com.meldcx.appupdater/.pollingservice.PollingService
 
 echo "*** INSTALL COMPLETE ***"
-
+sleep 5s
+if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
+    echo "Portrait Dismiss"
+    adb shell input tap 900 400
+else 
+    adb shell input tap 1175 405
+    sleep 2s
+fi
 echo "*** Rebooting ***"
 adb reboot
 echo "*** All Done ***"
