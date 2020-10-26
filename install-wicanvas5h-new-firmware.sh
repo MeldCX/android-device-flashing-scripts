@@ -18,7 +18,9 @@ echo "waiting for shell restart"
 sleep 30s
 echo "..."
 adb install -r -d binaries/SystemWebView_ARM.apk
-
+# Stop notifications:
+echo "Removing Notifications"
+adb shell settings put global heads_up_notifications_enabled 0
 
 # Agent WebUI
 echo "Installing AgentM WebUI"
@@ -94,7 +96,15 @@ adb install binaries/launcher-signed.apk
 adb shell pm hide com.android.launcher3
 adb shell pm disable com.android.launcher3
 adb shell cmd package set-home-activity "com.meldcx.meldcxlauncher/com.meldcx.meldcxlauncher.MainActivity"
-
+sleep 2s
+if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
+    echo "Portrait Dismiss"
+    adb shell input tap 900 400
+    sleep 2s
+else 
+    adb shell input tap 1175 405
+    sleep 2s
+fi
 # Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)
 echo "Installing Onboarding"
 if adb shell pm list packages | grep -q 'com.meldcx.agentm.service.onboarding'; then
@@ -103,21 +113,17 @@ fi
 adb install binaries/bluetooth-onboarding-canary-release-signed.apk
 adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCESS_COARSE_LOCATION
 
-# Stop notifications:
-echo "Removing Notifications"
-adb shell settings put global heads_up_notifications_enabled 0
-
 # start watchdog, launcher, updater
 echo "Starting Services"
-adb shell am start-foreground-service com.meldcx.watchdog/.WatchdogService
-adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.MainActivity"
-adb shell am start-foreground-service com.meldcx.appupdater/.pollingservice.PollingService
+
+adb shell am start -n "com.meldcx.agentm.webui/com.meldcx.agentm.webui.MainActivity"
 
 echo "*** INSTALL COMPLETE ***"
-sleep 5s
+sleep 2s
 if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
     echo "Portrait Dismiss"
     adb shell input tap 900 400
+    sleep 2s
 else 
     adb shell input tap 1175 405
     sleep 2s
