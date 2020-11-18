@@ -105,14 +105,6 @@ else
     adb shell input tap 1745 390
 fi
 
-# Updater
-echo "Installing Updater"
-if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
-    adb shell am force-stop com.meldcx.appupdater
-    adb uninstall com.meldcx.appupdater
-fi
-adb install binaries/updater-external-debug-signed.apk
-
 # Authentication/Enrollment
 echo "Installing Authentication & Enrollment"
 if adb shell pm list packages | grep -q 'com.meldcx.enrollment'; then
@@ -150,6 +142,18 @@ adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCES
 # Stop notifications:
 echo "Removing Notifications"
 adb shell settings put global heads_up_notifications_enabled 0
+
+# Updater
+adb remount
+adb shell stop
+sleep 5s
+adb shell rm -rf /system/app/AppUpdater
+adb shell rm -rf /data/data/com.meldcx.appupdater
+adb shell mkdir /system/app/AppUpdater
+adb push binaries/updater-canary-release-signed.apk /system/app/AppUpdater/
+adb shell start
+sleep 20s
+adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
 
 # start watchdog, launcher, updater
 echo "Starting Services"
