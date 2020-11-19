@@ -64,12 +64,12 @@ else
 fi
 
 # Updater
-echo "Installing Updater"
-if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
-    adb shell am force-stop com.meldcx.appupdater
-    adb uninstall com.meldcx.appupdater
-fi
-adb install binaries/updater-external-debug-signed.apk
+# echo "Installing Updater"
+# if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
+#     adb shell am force-stop com.meldcx.appupdater
+#     adb uninstall com.meldcx.appupdater
+# fi
+# adb install binaries/updater-external-debug-signed.apk
 
 # Authentication/Enrollment
 echo "Installing Authentication & Enrollment"
@@ -113,9 +113,24 @@ fi
 adb install binaries/bluetooth-onboarding-canary-release-signed.apk
 adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCESS_COARSE_LOCATION
 
+echo "Installing Updater"
+if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
+    adb shell am force-stop com.meldcx.appupdater
+fi
+adb remount
+adb shell stop
+sleep 5s
+adb shell rm -rf /system/app/AppUpdater
+adb shell rm -rf /system/priv-app/AppUpdater
+adb shell rm -rf /data/data/com.meldcx.appupdater
+adb shell mkdir /system/priv-app/AppUpdater
+adb push binaries/updater-canary-release-signed.apk /system/priv-app/AppUpdater/
+adb shell start
+sleep 20s
+adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
 # start watchdog, launcher, updater
 echo "Starting Services"
-
+adb shell am start-foreground-service com.meldcx.appupdater/.pollingservice.PollingService
 adb shell am start -n "com.meldcx.agentm.webui/com.meldcx.agentm.webui.MainActivity"
 
 echo "*** INSTALL COMPLETE ***"
