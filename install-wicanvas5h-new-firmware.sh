@@ -121,9 +121,10 @@ adb remount
 adb shell stop
 sleep 5s
 adb shell rm -rf /system/app/AppUpdater
+adb shell rm -rf /system/priv-app/AppUpdater
 adb shell rm -rf /data/data/com.meldcx.appupdater
-adb shell mkdir /system/app/AppUpdater
-adb push binaries/updater-canary-release-signed.apk /system/app/AppUpdater/
+adb shell mkdir /system/priv-app/AppUpdater
+adb push binaries/updater-canary-release-signed.apk /system/priv-app/AppUpdater/
 adb shell start
 sleep 20s
 adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
