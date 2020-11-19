@@ -111,7 +111,7 @@ if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
     adb shell am force-stop com.meldcx.appupdater
     adb uninstall com.meldcx.appupdater
 fi
-adb install binaries/updater-external-debug-signed.apk
+adb install binaries/updater-canary-release-signed.apk
 
 # Authentication/Enrollment
 echo "Installing Authentication & Enrollment"
