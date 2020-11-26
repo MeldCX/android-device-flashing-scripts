@@ -30,7 +30,7 @@ sleep 10s
 adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.install.InstallUtil"
 sleep 2s
 
-if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
+if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[2560,1440\]')" -ge 1 ]; then
     echo "Portrait Dismiss"
     adb shell input tap 178 944 #Check Box for screen recording permission
     sleep 1s
