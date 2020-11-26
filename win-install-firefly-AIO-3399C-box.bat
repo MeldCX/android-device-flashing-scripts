@@ -43,18 +43,18 @@ if errorlevel 1 (
     adb shell input tap 178 944 #Check Box for screen recording permission
     timeout /t 1 /NOBREAK
     adb shell input tap 847 1014 #Screen recording permission Start now button press
-    timeout /t 3 /NOBREAK
+    timeout /t 4 /NOBREAK
     adb shell input tap 914 317 #Screen Orientation related permission by switching the toggle ON
-    timeout /t 3 /NOBREAK
+    timeout /t 4 /NOBREAK
     adb shell input keyevent KEYCODE_BACK
 else
     echo Landscape Dismiss
     adb shell input tap 503 529 #Check Box for screen recording permission
     timeout /t 2 /NOBREAK
     adb shell input tap 1360 594 #Screen recording permission Start now button press
-    timeout /t 3 /NOBREAK
+    timeout /t 4 /NOBREAK
     adb shell input tap 1682 319 #Screen Orientation related permission by switching the toggle ON
-    timeout /t 3 /NOBREAK
+    timeout /t 4 /NOBREAK
     adb shell input keyevent KEYCODE_BACK
 fi
 

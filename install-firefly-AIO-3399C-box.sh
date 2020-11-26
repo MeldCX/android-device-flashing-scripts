@@ -35,18 +35,18 @@ if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[2560,1440\
     adb shell input tap 178 944 #Check Box for screen recording permission
     sleep 1s
     adb shell input tap 847 1014 #Screen recording permission Start now button press
-    sleep 3s
+    sleep 4s
     adb shell input tap 914 317 #Screen Orientation related permission by switching the toggle ON
-    sleep 3s
+    sleep 4s
     adb shell input keyevent KEYCODE_BACK
 else
     echo "Landscape Dismiss"
     adb shell input tap 503 529 #Check Box for screen recording permission
     sleep 2s
     adb shell input tap 1360 594 #Screen recording permission Start now button press
-    sleep 3s
+    sleep 4s
     adb shell input tap 1682 319 #Screen Orientation related permission by switching the toggle ON
-    sleep 3s
+    sleep 4s
     adb shell input keyevent KEYCODE_BACK
 fi
 
