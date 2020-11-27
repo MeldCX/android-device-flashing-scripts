@@ -3,7 +3,7 @@ adb version
 echo MeldCX note: ADB Version must be 1.0.33 or above
 
 adb root
-timeout /t 20 /NOBREAK
+timeout /t 5 /NOBREAK
 REM Permission for Watchdog
 echo Stopping WatchDog
 adb shell am force-stop com.meldcx.watchdog

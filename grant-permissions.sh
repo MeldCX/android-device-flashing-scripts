@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 command -v adb >/dev/null 2>&1 || { echo >&2 "I require adb but it's not installed.  Aborting."; exit 1; }
 adb root
-sleep 10s
+sleep 5s
 #Permission for Watchdog
 echo "Stopping Watchdog"
 adb shell am force-stop com.meldcx.watchdog
