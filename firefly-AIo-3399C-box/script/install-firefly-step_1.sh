@@ -28,14 +28,14 @@ adb install binaries/agent-release-signed.apk
 sleep 10s
 
 adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.install.InstallUtil"
-sleep 2s
-
-if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[2560,1440\]')" -ge 1 ]; then
+sleep 4s
+# 1080,1920
+if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
     echo "Portrait Dismiss"
     adb shell input tap 178 944 #Check Box for screen recording permission
-    sleep 1s
+    sleep 2s
     adb shell input tap 847 1014 #Screen recording permission Start now button press
-    sleep 4s
+    sleep 6s
     adb shell input tap 914 317 #Screen Orientation related permission by switching the toggle ON
     sleep 4s
     adb shell input keyevent KEYCODE_BACK
@@ -44,7 +44,7 @@ else
     adb shell input tap 503 529 #Check Box for screen recording permission
     sleep 2s
     adb shell input tap 1360 594 #Screen recording permission Start now button press
-    sleep 4s
+    sleep 6s
     adb shell input tap 1682 319 #Screen Orientation related permission by switching the toggle ON
     sleep 4s
     adb shell input keyevent KEYCODE_BACK
@@ -83,15 +83,6 @@ adb shell pm hide com.android.launcher3
 adb shell pm disable com.android.launcher3
 adb shell cmd package set-home-activity "com.meldcx.meldcxlauncher/com.meldcx.meldcxlauncher.MainActivity"
 sleep 2s
-
-#if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[2560,1440\]')" -ge 1 ]; then
-#    echo "Portrait Dismiss"
-#    adb shell input tap 900 400
-#    sleep 2s
-#else
-#    adb shell input tap 1175 405
-#    sleep 2s
-#fi
 
 # Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)
 echo "Installing Onboarding"
@@ -133,14 +124,7 @@ adb shell am start -n "com.meldcx.agentm.webui/com.meldcx.agentm.webui.MainActiv
 
 echo "*** INSTALL COMPLETE ***"
 sleep 2s
-#if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[2560,1440\]')" -ge 1 ]; then
-#    echo "Portrait Dismiss"
-#    adb shell input tap 900 400
-#    sleep 2s
-#else
-#    adb shell input tap 1175 405
-#    sleep 2s
-#fi
+
 echo "*** Rebooting ***"
 adb reboot
-echo "*** All Done ***"
+echo "*** Please run Step 2 after reboot to complete the installation process ***"
