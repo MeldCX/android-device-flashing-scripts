@@ -129,12 +129,14 @@ adb shell am start -n "com.meldcx.agentm.webui/com.meldcx.agentm.webui.MainActiv
 
 adb shell dumpsys window displays | find "mBounds=[0,0][1920,1080]" > nul
 if errorlevel 1 (
-  adb shell input tap 700 300 #Dismiss view full screen
+    echo Portrait Dismiss
+    adb shell input tap 700 300 #Dismiss view full screen
     sleep 2s
-else
-  adb shell input tap 1120 300 #Dismiss view full screen
-  sleep 2s
-fi
+) else (
+    echo Landscape Dismiss
+    adb shell input tap 1120 300 #Dismiss view full screen
+    sleep 2s
+)
 
 echo *** INSTALL COMPLETE ***
 timeout /t 2 /NOBREAK
