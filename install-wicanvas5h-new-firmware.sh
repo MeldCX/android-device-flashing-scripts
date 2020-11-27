@@ -146,3 +146,4 @@ fi
 echo "*** Rebooting ***"
 adb reboot
 echo "*** All Done ***"
+echo "*** Please run Step 2 after reboot to complete the installation process ***"
