@@ -81,12 +81,14 @@ if errorlevel 1 (
     timeout /t 2 /NOBREAK
     adb shell input tap 800 1080
     timeout /t 2 /NOBREAK
+    adb shell input tap 1000 400
 ) else (
     echo Landscape Dismiss
     adb shell input tap 530 560
     timeout /t 2 /NOBREAK
     adb shell input tap 1300 650
     timeout /t 2 /NOBREAK
+    adb shell input tap 1745 390
 )
 
 
