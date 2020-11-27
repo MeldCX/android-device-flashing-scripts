@@ -101,7 +101,7 @@ if errorlevel 1 (
   adb shell am force-stop com.meldcx.appupdater
   adb uninstall com.meldcx.appupdater
 )
-adb install binaries/updater-external-debug-signed.apk
+adb install binaries/updater-canary-release-signed.apk
 
 
 echo Installing Authentication and Enrollment
@@ -177,3 +177,4 @@ echo *** INSTALL COMPLETE ***
 echo *** Rebooting ***
 adb reboot
 echo *** All Done *** 
+echo *** Please run Step 2 after reboot to complete the installation process ***
