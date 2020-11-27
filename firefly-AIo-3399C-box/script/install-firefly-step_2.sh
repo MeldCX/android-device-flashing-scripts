@@ -50,6 +50,8 @@ echo "WRITE_EXTERNAL_STORAGE permission for app updater"
 sleep 2s
 adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
 sleep 2s
+echo ""*** INSTALL COMPLETE ***""
+sleep 1s
 echo "*** Rebooting ***"
 adb reboot
 echo "*** All Done ***"

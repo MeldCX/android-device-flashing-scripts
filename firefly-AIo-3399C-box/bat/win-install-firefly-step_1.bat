@@ -37,7 +37,7 @@ timeout /t 5 /NOBREAK
 adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.install.InstallUtil"
 timeout /t 2 /NOBREAK
 
-adb shell dumpsys window displays | find "mBounds=[0,0][2560,1440]" > nul
+adb shell dumpsys window displays | find "mBounds=[0,0][1080,1920]" > nul
 if errorlevel 1 (
     echo Portrait Dismiss
     adb shell input tap 178 944 #Check Box for screen recording permission
@@ -126,7 +126,7 @@ echo Installing App Updater
 adb shell pm list packages | find "com.meldcx.appupdater" > nul
 if errorlevel 1 (
   echo No existing App Updater instalation
-) else (  
+) else (
   echo Uninstalling existing App Updater
   adb shell am force-stop com.meldcx.appupdater
 )
@@ -162,4 +162,4 @@ timeout /t 2 /NOBREAK
 
 echo *** Rebooting ***
 adb reboot
-echo *** All Done ***
+echo *** Please run Step 2 after reboot to complete the installation process ***
