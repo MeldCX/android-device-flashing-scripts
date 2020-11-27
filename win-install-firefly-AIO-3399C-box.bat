@@ -47,7 +47,7 @@ if errorlevel 1 (
     adb shell input tap 914 317 #Screen Orientation related permission by switching the toggle ON
     timeout /t 4 /NOBREAK
     adb shell input keyevent KEYCODE_BACK
-else
+) else (
     echo Landscape Dismiss
     adb shell input tap 503 529 #Check Box for screen recording permission
     timeout /t 2 /NOBREAK
@@ -56,7 +56,7 @@ else
     adb shell input tap 1682 319 #Screen Orientation related permission by switching the toggle ON
     timeout /t 4 /NOBREAK
     adb shell input keyevent KEYCODE_BACK
-fi
+)
 
 REM Authentication/Enrollment
 echo Installing Authentication & Enrollment
@@ -122,10 +122,14 @@ timeout /t 2 /NOBREAK
 adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCESS_COARSE_LOCATION
 timeout /t 2 /NOBREAK
 
-echo Installing Updater
-if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
-    adb shell am force-stop com.meldcx.appupdater
-fi
+echo Installing App Updater
+adb shell pm list packages | find "com.meldcx.appupdater" > nul
+if errorlevel 1 (
+  echo No existing App Updater instalation
+) else (  
+  echo Uninstalling existing App Updater
+  adb shell am force-stop com.meldcx.appupdater
+)
 
 adb root
 timeout /t 1 /NOBREAK
@@ -143,6 +147,10 @@ adb shell start
 timeout /t 15 /NOBREAK
 adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
 timeout /t 2 /NOBREAK
+
+echo Removing Notifications
+adb shell settings put global heads_up_notifications_enabled 0
+
 REM start watchdog, launcher, updater
 echo Starting Services
 adb shell am start-foreground-service com.meldcx.appupdater/.pollingservice.PollingService
