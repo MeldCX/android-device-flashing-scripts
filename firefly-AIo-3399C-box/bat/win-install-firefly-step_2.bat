@@ -9,13 +9,32 @@ timeout /t 1 /NOBREAK
 
 echo Granting required permissions for Apps
 
+REM Watchdog (package:com.meldcx.watchdog)
+echo echo "Package usage permission for Watchdog"
+adb shell am force-stop com.meldcx.watchdog
+timeout /t 2 /NOBREAK
+adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
+timeout /t 1 /NOBREAK
+
+REM Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)
+echo Location permission required for Blueooth function part of Onboarding
+adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCESS_COARSE_LOCATION
+timeout /t 2 /NOBREAK
+
+REM App Updater
+echo WRITE_EXTERNAL_STORAGE permission for app updater
+adb shell am force-stop com.meldcx.appupdater
+timeout /t 2 /NOBREAK
+adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
+timeout /t 2 /NOBREAK
+
 REM Agent
 echo AgentM Screen capture and rotation permission
 timeout /t 1 /NOBREAK
 adb shell am start -n "com.meldcx.agentm/com.meldcx.agentm.install.InstallUtil"
 timeout /t 2 /NOBREAK
 
-adb shell dumpsys window displays | find "mBounds=[0,0][1080,1920]" > nul
+adb shell dumpsys window displays | find "mBounds=[0,0][1920, 1080]" > nul
 if errorlevel 1 (
     echo Portrait Dismiss
     adb shell input tap 178 944 #Check Box for screen recording permission
@@ -36,21 +55,10 @@ if errorlevel 1 (
     adb shell input keyevent KEYCODE_BACK
 )
 
-REM Watchdog (package:com.meldcx.watchdog)
-echo echo "Package usage permission for Watchdog"
-timeout /t 2 /NOBREAK
-adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
 timeout /t 1 /NOBREAK
-
-REM Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)
-echo Location permission required for Blueooth function part of Onboarding
-adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCESS_COARSE_LOCATION
-timeout /t 2 /NOBREAK
-
-REM App Updater
-echo WRITE_EXTERNAL_STORAGE permission for app updater
-adb shell pm grant com.meldcx.appupdater android.permission.WRITE_EXTERNAL_STORAGE
-timeout /t 2 /NOBREAK
+adb shell am start-foreground-service com.meldcx.appupdater/.pollingservice.PollingService
+timeout /t 1 /NOBREAK
+adb shell am start-foreground-service com.meldcx.watchdog/.WatchdogService
 
 echo *** INSTALL COMPLETE ***
 timeout /t 1 /NOBREAK
