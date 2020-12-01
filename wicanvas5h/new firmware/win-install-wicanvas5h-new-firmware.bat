@@ -12,8 +12,11 @@ if errorlevel 1 (
   adb uninstall com.google.android.webview
 )
 adb root
+timeout /t 5 /NOBREAK
 adb remount
+timeout /t 3 /NOBREAK
 adb shell stop
+timeout /t 2 /NOBREAK
 adb shell rm -rf /system/app/webview /system/app/WebViewGoogle /system/app/WebViewStub \
                  /system/product_services/app/webview /system/product_services/app/WebViewGoogle \
                  /system/product_services/app/WebViewStub /system/product_services/app/TrichromeWebView
@@ -140,8 +143,9 @@ if errorlevel 1 (
   adb shell am force-stop com.meldcx.appupdater
 )
 adb remount
+timeout /t 3 /NOBREAK
 adb shell stop
-timeout /t 5 /NOBREAK
+timeout /t 3 /NOBREAK
 adb shell rm -rf /system/app/AppUpdater
 adb shell rm -rf /system/priv-app/AppUpdater
 adb shell rm -rf /data/data/com.meldcx.appupdater

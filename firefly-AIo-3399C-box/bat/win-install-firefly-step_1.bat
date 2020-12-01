@@ -3,9 +3,9 @@ adb version
 echo MeldCX note: ADB Version must be 1.0.33 or above
 
 adb root
-timeout /t 3 /NOBREAK
+timeout /t 5 /NOBREAK
 adb remount
-timeout /t 1 /NOBREAK
+timeout /t 3 /NOBREAK
 
 echo Uninstalling All Meld Apps
 adb uninstall com.meldcx.agentm.webui
@@ -36,9 +36,9 @@ timeout /t 3 /NOBREAK
 echo "Installing All Meld Apps"
 
 adb root
-timeout /t 1 /NOBREAK
+timeout /t 5 /NOBREAK
 adb remount
-timeout /t 1 /NOBREAK
+timeout /t 3 /NOBREAK
 
 REM Agent WebUI
 echo Installing AgentM WebUI
@@ -105,9 +105,9 @@ adb shell pm grant com.meldcx.agentm.service.onboarding android.permission.ACCES
 timeout /t 2 /NOBREAK
 
 adb root
-timeout /t 1 /NOBREAK
+timeout /t 5 /NOBREAK
 adb remount
-timeout /t 1 /NOBREAK
+timeout /t 3 /NOBREAK
 adb shell stop
 timeout /t 3 /NOBREAK
 adb shell mkdir /system/priv-app/AppUpdater

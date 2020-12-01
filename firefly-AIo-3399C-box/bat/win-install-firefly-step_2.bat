@@ -3,9 +3,9 @@ adb version
 echo MeldCX note: ADB Version must be 1.0.33 or above
 
 adb root
-timeout /t 1 /NOBREAK
+timeout /t 5 /NOBREAK
 adb remount
-timeout /t 1 /NOBREAK
+timeout /t 3 /NOBREAK
 
 echo Granting required permissions for Apps
 
