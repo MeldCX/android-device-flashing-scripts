@@ -3,9 +3,9 @@
 command -v adb >/dev/null 2>&1 || { echo >&2 "I require adb but it's not installed.  Aborting."; exit 1; }
 
 adb root
-sleep 3s
+sleep 5s
 adb remount
-sleep 1s
+sleep 3s
 
 echo "Uninstalling All Meld Apps"
 adb uninstall com.meldcx.agentm.webui
@@ -31,14 +31,14 @@ adb shell rm -rf /system/priv-app/AppUpdater
 adb shell rm -rf /data/data/com.meldcx.appupdater
 sleep 1s
 adb shell start
-sleep 3s
+sleep 5s
 
 echo "Installing All Meld Apps"
 
 adb root
-sleep 1s
+sleep 5s
 adb remount
-sleep 1s
+sleep 3s
 
 # Agent WebUI
 echo "Installing AgentM WebUI"
@@ -107,9 +107,9 @@ if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
 fi
 
 adb root
-sleep 1s
+sleep 5s
 adb remount
-sleep 1s
+sleep 3s
 adb shell stop
 sleep 5s
 adb shell mkdir /system/priv-app/AppUpdater

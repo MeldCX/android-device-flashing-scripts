@@ -8,8 +8,11 @@ if adb shell pm list packages | grep -q 'com.google.android.webview'; then
     adb uninstall com.google.android.webview
 fi
 adb root
+sleep 5s
 adb remount
+sleep 3s
 adb shell stop
+sleep 2s
 adb shell rm -rf /system/app/webview /system/app/WebViewGoogle /system/app/WebViewStub \
                  /system/product_services/app/webview /system/product_services/app/WebViewGoogle \
                  /system/product_services/app/WebViewStub /system/product_services/app/TrichromeWebView
@@ -118,6 +121,7 @@ if adb shell pm list packages | grep -q 'com.meldcx.appupdater'; then
     adb shell am force-stop com.meldcx.appupdater
 fi
 adb remount
+sleep 3s
 adb shell stop
 sleep 5s
 adb shell rm -rf /system/app/AppUpdater

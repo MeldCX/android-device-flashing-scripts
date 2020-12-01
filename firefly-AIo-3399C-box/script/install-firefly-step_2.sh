@@ -5,9 +5,9 @@ command -v adb >/dev/null 2>&1 || { echo >&2 "I require adb but it's not install
 echo "Granting required permissions for Apps"
 
 adb root
-sleep 3s
+sleep 5s
 adb remount
-sleep 1s
+sleep 3s
 
 # Watchdog (package:com.meldcx.watchdog)
 echo "Package usage permission for Watchdog"

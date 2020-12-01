@@ -8,11 +8,13 @@ mkdir backup
 OUTPUT="backup/framework-res$TIMESTAMP.apk"
 
 adb root
+sleep 5s
 adb shell pm hide swpc.wistron.com.wiwall.tv
 adb shell pm hide com.wistron.longrun
  
 #Disable stuff
 adb root
+sleep 5s
 adb disable-verity
 adb reboot
 
@@ -22,8 +24,11 @@ echo "..."
 
 # Firmware
 adb root
+sleep 5s
 adb remount
+sleep 3s
 adb shell stop
+sleep 2s
 adb pull /system/framework/framework-res.apk $OUTPUT
 adb push binaries/framework-res-signed.apk /system/framework/framework-res.apk
 adb push binaries/bootanimation.zip /oem/media/bootanimation.zip
@@ -37,8 +42,11 @@ if adb shell pm list packages | grep -q 'com.google.android.webview'; then
     adb uninstall com.google.android.webview
 fi
 adb root
+sleep 5s
 adb remount
+sleep 3s
 adb shell stop
+sleep 2s
 adb shell rm -rf /system/app/webview /system/app/WebViewGoogle /system/app/WebViewStub \
                  /system/product_services/app/webview /system/product_services/app/WebViewGoogle \
                  /system/product_services/app/WebViewStub /system/product_services/app/TrichromeWebView

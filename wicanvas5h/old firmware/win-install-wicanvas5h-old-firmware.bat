@@ -3,11 +3,13 @@ adb version
 echo MeldCX note: ADB Version must be 1.0.33 or above
 
 adb root
+timeout /t 5 /NOBREAK
 adb shell pm hide swpc.wistron.com.wiwall.tv
 adb shell pm hide com.wistron.longrun
 
 REM Disable stuff
 adb root
+timeout /t 5 /NOBREAK
 adb disable-verity
 adb reboot
 
@@ -16,8 +18,11 @@ timeout /t 40 /NOBREAK
 echo ...
 
 adb root
+timeout /t 5 /NOBREAK
 adb remount
+timeout /t 3 /NOBREAK
 adb shell stop
+timeout /t 2 /NOBREAK
 adb push binaries\framework-res-signed.apk /system/framework/framework-res.apk
 adb push binaries\bootanimation.zip /oem/media/bootanimation.zip
 adb shell start
@@ -35,8 +40,11 @@ if errorlevel 1 (
   adb uninstall com.google.android.webview
 )
 adb root
+timeout /t 5 /NOBREAK
 adb remount
+timeout /t 3 /NOBREAK
 adb shell stop
+timeout /t 2 /NOBREAK
 adb shell rm -rf /system/app/webview /system/app/WebViewGoogle /system/app/WebViewStub \
                  /system/product_services/app/webview /system/product_services/app/WebViewGoogle \
                  /system/product_services/app/WebViewStub /system/product_services/app/TrichromeWebView
