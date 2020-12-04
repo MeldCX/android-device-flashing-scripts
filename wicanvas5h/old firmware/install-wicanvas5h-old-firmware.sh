@@ -135,7 +135,11 @@ if adb shell pm list packages | grep -q 'com.meldcx.watchdog'; then
     adb uninstall com.meldcx.watchdog
 fi
 adb install binaries/watchdog-release-signed.apk
+sleep 5s
 adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
+sleep 3s
+adb shell settings put secure enabled_accessibility_services %accessibility:com.meldcx.watchdog/com.meldcx.watchdog.WindowChangeDetectingService
+sleep 2s
 
 # Launcher (package:com.meldcx.meldcxlauncher)
 echo "Installing Meld Launcher"
