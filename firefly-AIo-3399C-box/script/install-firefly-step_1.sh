@@ -84,14 +84,16 @@ adb install binaries/watchdog-release-signed.apk
 sleep 2s
 adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
 sleep 2s
+adb shell settings put secure enabled_accessibility_services %accessibility:com.meldcx.watchdog/com.meldcx.watchdog.WindowChangeDetectingService
+sleep 2s
 
 # Launcher (package:com.meldcx.meldcxlauncher)
-echo "Installing Meld Launcher"
-adb install binaries/launcher-signed.apk
-sleep 1s
+#echo "Installing Meld Launcher"
+#adb install binaries/launcher-signed.apk
+#sleep 1s
 adb shell pm hide com.android.launcher3
 adb shell pm disable com.android.launcher3
-adb shell cmd package set-home-activity "com.meldcx.meldcxlauncher/com.meldcx.meldcxlauncher.MainActivity"
+adb shell cmd package set-home-activity "com.meldcx.agentm/com.meldcx.agentm.MainActivity"
 sleep 2s
 
 # Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)

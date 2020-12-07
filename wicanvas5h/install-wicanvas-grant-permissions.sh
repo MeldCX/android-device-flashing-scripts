@@ -8,6 +8,8 @@ adb shell am force-stop com.meldcx.watchdog
 sleep 3s
 echo "Granting PACKAGE_USAGE_STATS to WatchDog"
 adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
+sleep 3s
+adb shell settings put secure enabled_accessibility_services %accessibility:com.meldcx.watchdog/com.meldcx.watchdog.WindowChangeDetectingService
 
 #Permission for App Updater
 echo "Stopping App Updater"

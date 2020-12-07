@@ -95,14 +95,14 @@ adb shell settings put secure enabled_accessibility_services %accessibility:com.
 sleep 2s
 
 # Launcher (package:com.meldcx.meldcxlauncher)
-echo "Installing Meld Launcher"
-if adb shell pm list packages | grep -q 'com.meldcx.meldcxlauncher'; then
-    adb uninstall com.meldcx.meldcxlauncher
-fi
-adb install binaries/launcher-signed.apk
+#echo "Installing Meld Launcher"
+#if adb shell pm list packages | grep -q 'com.meldcx.meldcxlauncher'; then
+#    adb uninstall com.meldcx.meldcxlauncher
+#fi
+#adb install binaries/launcher-signed.apk
 adb shell pm hide com.android.launcher3
 adb shell pm disable com.android.launcher3
-adb shell cmd package set-home-activity "com.meldcx.meldcxlauncher/com.meldcx.meldcxlauncher.MainActivity"
+adb shell cmd package set-home-activity "com.meldcx.agentm/com.meldcx.agentm.MainActivity"
 sleep 2s
 if [ "$(adb shell dumpsys window displays | grep -c 'mBounds=\[0,0\]\[1080,1920\]')" -ge 1 ]; then
     echo "Portrait Dismiss"
