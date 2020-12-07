@@ -102,19 +102,22 @@ timeout /t 2 /NOBREAK
 adb shell settings put secure enabled_accessibility_services %accessibility:com.meldcx.watchdog/com.meldcx.watchdog.WindowChangeDetectingService
 timeout /t 2 /NOBREAK
 
-echo Installing Meld Launcher
-adb shell pm list packages | find "com.meldcx.meldcxlauncher" > nul
-if errorlevel 1 (
-  echo No existing Meld Launcher instalation
-) else (  
-  echo Uninstalling existing Meld Launcher
-  adb uninstall com.meldcx.meldcxlauncher
-)
-adb install binaries/launcher-signed.apk
+REM echo Installing Meld Launcher
+REM adb shell pm list packages | find "com.meldcx.meldcxlauncher" > nul
+REM if errorlevel 1 (
+REM  echo No existing Meld Launcher instalation
+REM ) else (
+REM  echo Uninstalling existing Meld Launcher
+REM  adb uninstall com.meldcx.meldcxlauncher
+REM )
+REM adb install binaries/launcher-signed.apk
+
 adb shell pm hide com.android.launcher3
 adb shell pm disable com.android.launcher3
-adb shell cmd package set-home-activity "com.meldcx.meldcxlauncher/com.meldcx.meldcxlauncher.MainActivity"
 timeout /t 2 /NOBREAK
+adb shell cmd package set-home-activity "com.meldcx.agentm/com.meldcx.agentm.MainActivity"
+timeout /t 2 /NOBREAK
+
 adb shell dumpsys window displays | find "mBounds=[0,0][1920,1080]" > nul
 if errorlevel 1 (
     echo Portrait Dismiss
