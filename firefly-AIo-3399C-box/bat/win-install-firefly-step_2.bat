@@ -14,7 +14,9 @@ echo echo "Package usage permission for Watchdog"
 adb shell am force-stop com.meldcx.watchdog
 timeout /t 2 /NOBREAK
 adb shell pm grant com.meldcx.watchdog android.permission.PACKAGE_USAGE_STATS
-timeout /t 1 /NOBREAK
+timeout /t 2 /NOBREAK
+adb shell settings put secure enabled_accessibility_services %accessibility:com.meldcx.watchdog/com.meldcx.watchdog.WindowChangeDetectingService
+timeout /t 3 /NOBREAK
 
 REM Bluetooth onboarding (package:com.meldcx.agentm.service.onboarding)
 echo Location permission required for Blueooth function part of Onboarding
