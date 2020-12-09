@@ -1,6 +1,24 @@
 @echo off
 adb version
 echo MeldCX note: ADB Version must be 1.0.33 or above
+adb root
+timeout /t 5 /NOBREAK
+adb disable-verity
+adb reboot
+
+echo "waiting for reboot..."
+timeout /t 60 /NOBREAK
+echo "..."
+
+# Firmware
+adb root
+timeout /t 5 /NOBREAK
+adb remount
+timeout /t 5 /NOBREAK
+adb shell stop
+timeout /t 5 /NOBREAK
+adb push binaries/bootanimation.zip /oem/media/bootanimation.zip
+adb shell start
 
 REM Install Chromium
 echo Installing Chromium
