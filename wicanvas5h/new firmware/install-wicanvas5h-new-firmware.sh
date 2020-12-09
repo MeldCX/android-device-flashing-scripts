@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 
 command -v adb >/dev/null 2>&1 || { echo >&2 "I require adb but it's not installed.  Aborting."; exit 1; }
+adb root
+sleep 5s
+adb disable-verity
+adb reboot
+
+echo "waiting for reboot..."
+sleep 60s
+echo "..."
+
+# Firmware
+adb root
+sleep 5s
+adb remount
+sleep 3s
+adb shell stop
+sleep 2s
+adb push binaries/bootanimation.zip /oem/media/bootanimation.zip
+adb shell start
 
 # Install Chromium
 echo "Installing Chromium Webview"
